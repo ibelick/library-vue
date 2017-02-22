@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Library</title>
+    <link rel="stylesheet" href="node_modules/bulma/css/bulma.css" media="screen" title="no title">
+    <link rel="stylesheet" href="src/css/style.css" media="screen" title="no title">
+  </head>
+  <body>
+
+  <div class="content">
+    <h1 class="title has-text-centered">Library</h1>
+    <main id="app"></main>
+  </div>
+
+  <template id="book-List">
+    <section class="book-List">
+    <div class="columns">
+      <div class="column is-one-quarters">
+        <div class="filters row">
+          <div class="form-group">
+            <label class="label" for="search-element">Book name</label>
+            <input v-model="searchKey" class="input" id="search-element" requred/>
+          </div>
+        </div>
+      </div>
+      <div class="column add-product">
+        <div class="actions is-pulled-right">
+          <router-link class="button is-primary" :to="{path: '/add-book'}">
+            Add book
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr v-for="book in filteredBooks">
+        <td>
+          <router-link :to="{name: 'book', params: {book: book.id}}">{{ book.name }}</router-link>
+        </td>
+        <td>{{ book.description }}</td>
+        <td>
+          {{ book.price }}
+          <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+        </td>
+        <td>
+          <router-link class="btn btn-warning btn-xs" :to="{name: 'book-edit', params: {book_id: book.id}}">Edit</router-link>
+<!--      <router-link class="btn btn-danger btn-xs" :to="{name: 'book-delete', params: {book_id: book.id}}">Delete</router-link> -->
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    </section>
+  </template>
+
+  <template id="book">
+    <section>
+    <h2>{{ book.name }}</h2>
+    <b>Description: </b>
+    <div>{{ book.description }}</div>
+    <b>Price:</b>
+    <div>{{ book.price }}<span class="glyphicon glyphicon-euro"></span></div>
+    <br/>
+    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+    <router-link to="'/'">Back to book list</router-link>
+  </section>
+  </template>
+
+  <template id="book-edit">
+
+  </template>
+
+  <script src="node_modules/vue/dist/vue.min.js" charset="utf-8"></script>
+  <script src="node_modules/vue-router/dist/vue-router.min.js" charset="utf-8"></script>
+  <script src="src/js/index1.js" charset="utf-8"></script>
+  </body>
+</html>
